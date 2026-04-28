@@ -33,4 +33,68 @@ class Category:
             #o to  dict (to dictionary) é para converter para dicionario mesmo, pq? quando a API reponder uma requisdição ela precisa mandar os dados em formato JSON lembra ai sim q o navegador e opostman entendem o flask nao consegue pegar o objeto category e converter sozinho el enao sabe nem oq e isso na real, ja com o to dict transforma o objeto num dicionario que o flask consegue conerverter tipo "id": 1, "name": "Trabalho"
         }
 
+class User:
+    def __init__(self, id: int, name:str, email:str):
+        self.__id = id
+        self.__name = name
+        self.__email = email
 
+    def get_id(self):
+        return self.__id
+    
+    def get_name(self):
+        return self.__name
+    
+    def get_email(self):
+        return self.__email
+    
+    def to_dict(self):
+        return{
+            "id": self.__id,
+            "name": self.__name,
+            "email": self.__email
+        }
+
+class Task:
+    def __init__(self, id:int, title:str, description:str, status:str, priority:str, deadline:str, user:User, category:Category):
+        self.__id = id
+        self.__title = title
+        self.__description = description
+        self.__status = status
+        self.__priority = priority
+        self.__deadline = deadline
+        self.__user = user
+        self.__category = category
+
+    def get_id(self):
+        return self.__id
+    
+    def get_title(self):
+        return self.__title
+    
+    def get_description(self):
+        return self.__description
+    
+    def get_status(self):
+        return self.__status
+    
+    def get_priority(self):
+        return self.__priority
+    
+    def get_deadline(self):
+        return self.__deadline
+    
+    def get_user(self):
+        return self.__user
+    
+    def get_category(self):
+        return self.__category
+    
+    
+    def to_dict(self):
+        return{
+            "id": self.__id,
+            "title": self.__title,
+            "description": self.__description,
+            "status":
+        }
