@@ -24,11 +24,11 @@ Postman
 
 Integrantes
 
-João Pedro Duarte (Tech Lead)
-David (nevext)
-Karlos
-Eduardo
-Moisés
-Yara
-Samia
-Zek
+João Pedro Duarte (Tech Lead)\\
+David \\
+Karlos\\
+Eduardo\\
+Moisés\\
+Yara\\
+Samia\\
+Zek\\
