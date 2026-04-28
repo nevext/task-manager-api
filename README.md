@@ -18,20 +18,16 @@ Ao criar o repositório, dois arquivos foram gerados automaticamente pelo Git:
 
 Tecnologias utilizadas
 
-Python
-
-Flask
-
-Postman
+Python, Flask, Postman
 
 
 Integrantes
 
 João Pedro Duarte (Tech Lead)
 
-David
+David Neves
 
-Karlos
+Karlos com K
 
 Eduardo
 
