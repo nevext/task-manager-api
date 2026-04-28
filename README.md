@@ -16,12 +16,14 @@ Ao criar o repositório, dois arquivos foram gerados automaticamente pelo Git:
 .gitattributes que define como o Git deve tratar os arquivos do projeto, como o tipo de quebra de linha, evitando conflitos entre membros do grupo que usam sistemas operacionais diferentes (Windows, Linux, Mac)
 .gitignore  que lista os arquivos e pastas que o Git deve ignorar e não enviar pro GitHub, como arquivos temporários do Python que não fazem sentido compartilhar com o grupo
 
+(David Neves) primeiro passo q fiz foi criar o models.py que é onde vão ter somente as classes, modelos = classes
+
 Tecnologias utilizadas
 
 Python, Flask, Postman
 
 
-Integrantes
+Integrantes:
 
 João Pedro Duarte (Tech Lead)
 
