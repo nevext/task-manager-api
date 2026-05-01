@@ -3,6 +3,10 @@
 # hierarquia: criar primeiro as classes que nao dependem de ninguem, entao category e user vem antes de task
 
 
+
+#Yara aquando tu tiver dzd isso nao esquece daquilo 
+
+
 # ─────────────────────────────────────────────
 # CLASS CATEGORY
 # representa o tipo/categoria da tarefa (ex: trabalho, estudo, pessoal)
