@@ -18,56 +18,39 @@
 # 3. criar as listas que vao guardar os objetos na memoria
 # 4. implementar os endpoints da sua secao
 # 5. no final do arquivo, garantir que o servidor rode com app.run(debug=True)
-
-
 # ─────────────────────────────────────────────
 # ENDPOINTS DE TASKS
-# responsavel: Karlos (GET), Eduardo (POST), Moises (PUT), Yara (DELETE)
-# atencao: Moises e Yara so podem comecar apos Karlos concluir o GET /tasks
+# responsavel: Samia (GET), Eduardo (POST), Moises (PUT), Yara (DELETE)
+# atencao: Moises e Yara so podem comecar apos Samia concluir o GET /tasks
 # ─────────────────────────────────────────────
-
-# Karlos → GET /tasks
+# Samia → GET /tasks
 # liste todas as tarefas aqui
-
-# Karlos → GET /tasks/<id>
+# Samia → GET /tasks/<id>
 # busque uma tarefa pelo id aqui
-
 # Eduardo → POST /tasks
 # crie uma nova tarefa aqui
-
 # Moises → PUT /tasks/<id>
 # edite uma tarefa aqui (status, prioridade...)
-# aguardar Karlos concluir antes de comecar
-
+# aguardar Samia concluir antes de comecar
 # Yara → DELETE /tasks/<id>
 # delete uma tarefa aqui
-# aguardar Karlos concluir antes de comecar
-
-
+# aguardar Samia concluir antes de comecar
 # ─────────────────────────────────────────────
 # ENDPOINTS DE USERS
-# responsavel: Eduardo (POST) e Samia (GET)
+# responsavel: Eduardo (POST) e Karlos (GET)
 # ─────────────────────────────────────────────
-
-# Samia → GET /users
+# Karlos → GET /users
 # liste todos os usuarios aqui
-
 # Eduardo → POST /users
 # crie um novo usuario aqui
-
-
 # ─────────────────────────────────────────────
 # ENDPOINTS DE CATEGORIES
-# responsavel: Yara (POST) e Samia (GET)
+# responsavel: Yara (POST) e Karlos (GET)
 # ─────────────────────────────────────────────
-
-# Samia → GET /categories
+# Karlos → GET /categories
 # liste todas as categorias aqui
-
 # Yara → POST /categories
 # crie uma nova categoria aqui
-
-
 # ─────────────────────────────────────────────
 # VALIDACOES
 # responsavel: Zek
