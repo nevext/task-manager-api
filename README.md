@@ -107,9 +107,9 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 ---
 
-### Karlos
-**Arquivo:** `main.py`  
-**Função:** Implementar os endpoints de listagem de tarefas  
+### Samia
+**Arquivo:** `main.py`, `README.md`  
+**Função:** Implementar os endpoints de listagem de tarefas, e documentação no Overleaf com David  
 **Endpoints:**
 - `GET /tasks` → listar todas as tarefas
 - `GET /tasks/<id>` → buscar uma tarefa pelo id
@@ -141,7 +141,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, na seção marcada com `# ENDPOINTS DE TASKS`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ⚠️ aguardar o Karlos concluir o `GET /tasks` antes de começar, pois precisará entender como as tarefas estão sendo armazenadas
+**Fila:** ⚠️ aguardar a Samia concluir o `GET /tasks` antes de começar, pois precisará entender como as tarefas estão sendo armazenadas
 
 ---
 
@@ -154,13 +154,13 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS` e `# ENDPOINTS DE CATEGORIES`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ⚠️ aguardar o Karlos concluir o `GET /tasks` antes de começar
+**Fila:** ⚠️ aguardar a Samia concluir o `GET /tasks` antes de começar
 
 ---
 
-### Samia
-**Arquivo:** `main.py`, `README.md`  
-**Função:** Implementar os endpoints de listagem de usuários e categorias, e documentação no Overleaf com David  
+### Karlos
+**Arquivo:** `main.py`  
+**Função:** Implementar os endpoints de listagem de usuários e categorias  
 **Endpoints:**
 - `GET /users` → listar todos os usuários
 - `GET /categories` → listar todas as categorias
@@ -190,11 +190,11 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 ```
 1. David Neves   → models.py ✅ (concluído)
-2. Karlos        → GET /tasks e GET /tasks/<id>
-3. Eduardo       → POST /tasks e POST /users       (paralelo com Karlos)
-4. Samia         → GET /users e GET /categories    (paralelo com Karlos)
-5. Yara          → DELETE /tasks e POST /categories (após Karlos)
-6. Moisés        → PUT /tasks/<id>                 (após Karlos)
+2. Samia         → GET /tasks e GET /tasks/<id>
+3. Eduardo       → POST /tasks e POST /users       (paralelo com Samia)
+4. Karlos        → GET /users e GET /categories    (paralelo com Samia)
+5. Yara          → DELETE /tasks e POST /categories (após Samia)
+6. Moisés        → PUT /tasks/<id>                 (após Samia)
 7. Zek           → validações                      (após todos os endpoints)
 8. João Pedro    → testes no Postman               (conforme endpoints forem prontos)
 9. David Neves   → frontend                        (após API completa)
@@ -207,9 +207,9 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 - [x] Repositório criado
 - [x] Estrutura base do projeto
 - [x] Classes Category, User e Task (David Neves)
-- [ ] GET /tasks e GET /tasks/\<id\> (Karlos)
+- [ ] GET /tasks e GET /tasks/\<id\> (Samia)
 - [ ] POST /tasks e POST /users (Eduardo)
-- [ ] GET /users e GET /categories (Samia)
+- [ ] GET /users e GET /categories (Karlos)
 - [ ] DELETE /tasks/\<id\> e POST /categories (Yara)
 - [ ] PUT /tasks/\<id\> (Moisés)
 - [ ] Validações (Zek)
