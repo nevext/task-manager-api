@@ -79,3 +79,6 @@ def get_task(task_id): #samia
 # ex: priority so aceita low, medium ou high
 # ex: campos obrigatorios nao podem vir vazios
 # ─────────────────────────────────────────────
+
+if __name__ == '__main__':
+    app.run(debug=True)
