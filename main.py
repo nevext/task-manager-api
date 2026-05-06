@@ -14,16 +14,16 @@
 #
 # importante: quem for comecar esse arquivo deve:
 # 1. importar o flask e as classes do models.py
-from flask import Flask, jsonify
-from models import Category, User, Task
+from flask import Flask, jsonify #samia
+from models import Category, User, Task #samia
 
 # 2. criar a instancia do app flask
-app = Flask(__name__)
+app = Flask(__name__) #samia
 
 # 3. criar as listas que vao guardar os objetos na memoria
-tasks = []
-users = []
-categories = []
+tasks = [] #samia
+users = [] #samia
+categories = [] #samia
 
 # 4. implementar os endpoints da sua secao
 # 5. no final do arquivo, garantir que o servidor rode com app.run(debug=True)
@@ -34,16 +34,16 @@ categories = []
 # ─────────────────────────────────────────────
 # Samia → GET /tasks
 # liste todas as tarefas aqui
-@app.route('/tasks', methods=['GET'])
-def get_tasks():
-    return jsonify([task.to_dict() for task in tasks])
+@app.route('/tasks', methods=['GET']) #samia
+def get_tasks(): #samia
+    return jsonify([task.to_dict() for task in tasks]) #samia
 
-@app.route('/tasks/<int:task_id>', methods=['GET'])
-def get_task(task_id):
-    for task in tasks:
-        if task.get_id() == task_id:
-            return jsonify(task.to_dict())
-    return jsonify({'error': 'Tarefa não encontrada'}), 404
+@app.route('/tasks/<int:task_id>', methods=['GET']) #samia
+def get_task(task_id): #samia
+    for task in tasks: #samia
+        if task.get_id() == task_id: #samia
+            return jsonify(task.to_dict()) #samia
+    return jsonify({'error': 'Tarefa não encontrada'}), 404 #samia
 # Samia → GET /tasks/<id>
 # busque uma tarefa pelo id aqui
 # Eduardo → POST /tasks
