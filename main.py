@@ -14,8 +14,17 @@
 #
 # importante: quem for comecar esse arquivo deve:
 # 1. importar o flask e as classes do models.py
+from flask import Flask, jsonify
+from models import Category, User, Task
+
 # 2. criar a instancia do app flask
+app = Flask(__name__)
+
 # 3. criar as listas que vao guardar os objetos na memoria
+tasks = []
+users = []
+categories = []
+
 # 4. implementar os endpoints da sua secao
 # 5. no final do arquivo, garantir que o servidor rode com app.run(debug=True)
 # ─────────────────────────────────────────────
