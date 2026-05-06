@@ -25,6 +25,16 @@
 # ─────────────────────────────────────────────
 # Samia → GET /tasks
 # liste todas as tarefas aqui
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify([task.to_dict() for task in tasks])
+
+@app.route('/tasks/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    for task in tasks:
+        if task.get_id() == task_id:
+            return jsonify(task.to_dict())
+    return jsonify({'error': 'Tarefa não encontrada'}), 404
 # Samia → GET /tasks/<id>
 # busque uma tarefa pelo id aqui
 # Eduardo → POST /tasks
