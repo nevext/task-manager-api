@@ -116,7 +116,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ✅ pode começar imediatamente, o `models.py` já está pronto
+**Fila:** ✅ concluido, o `models.py` já está pronto
 
 ---
 
