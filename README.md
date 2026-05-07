@@ -154,7 +154,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS` e `# ENDPOINTS DE CATEGORIES`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ⚠️ aguardar a Samia concluir o `GET /tasks` antes de começar
+**Fila:** "TERMINEI" aguardar a Samia concluir o `GET /tasks` antes de começar
 
 ---
 
