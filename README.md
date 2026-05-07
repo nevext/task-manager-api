@@ -207,8 +207,8 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 - [x] Repositório criado
 - [x] Estrutura base do projeto
 - [x] Classes Category, User e Task (David Neves)
-- [ ] GET /tasks e GET /tasks/\<id\> (Samia)
-- [ ] POST /tasks e POST /users (Eduardo)
+- [x] GET /tasks e GET /tasks/\<id\> (Samia)
+- [x] POST /tasks e POST /users (Eduardo)
 - [ ] GET /users e GET /categories (Karlos)
 - [ ] DELETE /tasks/\<id\> e POST /categories (Yara)
 - [ ] PUT /tasks/\<id\> (Moisés)
