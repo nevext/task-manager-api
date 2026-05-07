@@ -14,7 +14,7 @@
 #
 # importante: quem for comecar esse arquivo deve:
 # 1. importar o flask e as classes do models.py
-from flask import Flask, jsonify #samia
+from flask import Flask, jsonify, request #samia #eduardo
 from models import Category, User, Task #samia
 
 # 2. criar a instancia do app flask
@@ -47,22 +47,22 @@ def get_task(task_id): #samia
 # Samia → GET /tasks/<id>
 # busque uma tarefa pelo id aqui
 # Eduardo → POST /tasks
-@app.route('/tasks', methods=['POST'])
-def create_task():
-    data = request.get_json()
-    task_id = len(tasks) + 1
-    task = Task(
-        id=task_id,
-        title=data['title'],
-        description=data.get('description', ''),
-        status=data.get('status', 'pending'),
-        priority=data.get('priority', 'low'),
-        deadline=data.get('deadline', ''),
-        user_id=data.get('user_id'),
-        category_id=data.get('category_id')
+@app.route('/tasks', methods=['POST']) #eduardo
+def create_task(): #eduardo
+    data = request.get_json() #eduardo
+    task_id = len(tasks) + 1 #eduardo
+    task = Task( #eduardo
+        id=task_id, #eduardo
+        title=data['title'], #eduardo
+        description=data.get('description', ''), #eduardo
+        status=data.get('status', 'pending'), #eduardo
+        priority=data.get('priority', 'low'), #eduardo
+        deadline=data.get('deadline', ''), #eduardo
+        user_id=data.get('user_id'), #eduardo
+        category_id=data.get('category_id') #eduardo
     )
-    tasks.append(task)
-    return jsonify(task.to_dict()), 201
+    tasks.append(task) #eduardo
+    return jsonify(task.to_dict()), 201 #eduardo
 # crie uma nova tarefa aqui
 # Moises → PUT /tasks/<id>
 # edite uma tarefa aqui (status, prioridade...)
@@ -79,17 +79,17 @@ def create_task():
 # liste todos os usuarios aqui
 # Eduardo → POST /users
 # crie um novo usuario aqui
-@app.route('/users', methods=['POST'])
-def create_user():
-    data = request.get_json()
-    user_id = len(users) + 1
-    user = User(
-        id=user_id,
-        name=data['name'],
-        email=data['email']
+@app.route('/users', methods=['POST']) #eduardo
+def create_user(): #eduardo
+    data = request.get_json() #eduardo
+    user_id = len(users) + 1 #eduardo
+    user = User( #eduardo
+        id=user_id, #eduardo
+        name=data['name'], #eduardo
+        email=data['email'] #eduardo
     )
-    users.append(user)
-    return jsonify(user.to_dict()), 201
+    users.append(user) #eduardo
+    return jsonify(user.to_dict()), 201 #eduardo
 # ─────────────────────────────────────────────
 # ENDPOINTS DE CATEGORIES
 # responsavel: Yara (POST) e Karlos (GET)
