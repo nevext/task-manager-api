@@ -70,6 +70,14 @@ def create_task():
 # Yara → DELETE /tasks/<id>
 # delete uma tarefa aqui
 # aguardar Samia concluir antes de comecar
+  
+@app.route('/tasks/<int:task_id>', methods=['DELETE']) #yara
+def delete_task(task_id): #yara
+    for task in tasks: #yara
+        if task.get_id() == task_id: #yara
+            tasks.remove(task) #yara
+            return jsonify({'message': 'Tarefa deletada com sucesso'}) #yara
+    return jsonify({'error': 'Tarefa não encontrada'}), 404 #yara
 # ─────────────────────────────────────────────
 # ENDPOINTS DE USERS
 # responsavel: Eduardo (POST) e Karlos (GET)
@@ -98,6 +106,17 @@ def create_user():
 # liste todas as categorias aqui
 # Yara → POST /categories
 # crie uma nova categoria aqui
+@app.route('/categories', methods=['POST']) #yara
+def create_category(): #yara
+    data = request.get_json() #yara
+    name = data.get('name') #yara
+    if not name: #yara
+        return jsonify({'error': 'O campo "name" é obrigatório'}), 400 #yara
+    
+    category_id = len(categories) + 1 #yara
+    category = Category(id=category_id, name=name) #yara
+    categories.append(category) #yara
+    return jsonify(category.to_dict()), 201 #yara
 # ─────────────────────────────────────────────
 # VALIDACOES
 # responsavel: Zek
