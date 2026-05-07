@@ -47,6 +47,22 @@ def get_task(task_id): #samia
 # Samia → GET /tasks/<id>
 # busque uma tarefa pelo id aqui
 # Eduardo → POST /tasks
+@app.route('/tasks', methods=['POST'])
+def create_task():
+    data = request.get_json()
+    task_id = len(tasks) + 1
+    task = Task(
+        id=task_id,
+        title=data['title'],
+        description=data.get('description', ''),
+        status=data.get('status', 'pending'),
+        priority=data.get('priority', 'low'),
+        deadline=data.get('deadline', ''),
+        user_id=data.get('user_id'),
+        category_id=data.get('category_id')
+    )
+    tasks.append(task)
+    return jsonify(task.to_dict()), 201
 # crie uma nova tarefa aqui
 # Moises → PUT /tasks/<id>
 # edite uma tarefa aqui (status, prioridade...)
@@ -57,11 +73,23 @@ def get_task(task_id): #samia
 # ─────────────────────────────────────────────
 # ENDPOINTS DE USERS
 # responsavel: Eduardo (POST) e Karlos (GET)
+
 # ─────────────────────────────────────────────
 # Karlos → GET /users
 # liste todos os usuarios aqui
 # Eduardo → POST /users
 # crie um novo usuario aqui
+@app.route('/users', methods=['POST'])
+def create_user():
+    data = request.get_json()
+    user_id = len(users) + 1
+    user = User(
+        id=user_id,
+        name=data['name'],
+        email=data['email']
+    )
+    users.append(user)
+    return jsonify(user.to_dict()), 201
 # ─────────────────────────────────────────────
 # ENDPOINTS DE CATEGORIES
 # responsavel: Yara (POST) e Karlos (GET)
