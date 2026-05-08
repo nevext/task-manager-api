@@ -208,7 +208,7 @@ def get_categories():
     return jsonify([category.to_dict() for category in categories])
 # Yara → POST /categories
 # crie uma nova categoria aqui
-@app.route('/categories', methods=['POST']) #yara
+@app.route('/categories', methods=['POST']) #yara                           #(david) yara mexe so aiii
 def create_category(): #yara
     data = request.get_json() #yara
     
@@ -235,5 +235,5 @@ def create_category(): #yara
 # ex: campos obrigatorios nao podem vir vazios
 # ─────────────────────────────────────────────
 
-if __name__ == '__main__':
+if __name__ == '__main__': #(david) tava faltando isso aqui, ai o app nao rodava quando a gente dava python main.py
     app.run(debug=True)
