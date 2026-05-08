@@ -95,28 +95,27 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 ### João Pedro Duarte — Tech Lead
 **Arquivo:** nenhum  
 **Função:** Testar todos os endpoints no Postman após cada entrega e reportar erros ao responsável  
-**Pode começar:** a qualquer momento, conforme os endpoints forem sendo entregues
+**Status:** ✅ Concluído (7/7/2026)
 
 ---
 
 ### David Neves
 **Arquivos:** `models.py`, `README.md`, `frontend/`  
 **Função:** Criação das classes base do projeto (Category, User e Task), estrutura inicial do repositório, documentação no Overleaf com Samia e desenvolvimento do frontend  
-**Status:** ✅ Concluído (models.py e estrutura base)  
-**Pode começar:** já concluído — frontend será feito após a API estar pronta
+**Status:** ✅ Concluído (7/7/2026)
 
 ---
 
 ### Samia
 **Arquivo:** `main.py`, `README.md`  
-**Função:** Implementar os endpoints de listagem de tarefas, e documentação no Overleaf com David  
+**Função:** Implementar os endpoints de listagem de tarefas e documentação no Overleaf com David  
 **Endpoints:**
 - `GET /tasks` → listar todas as tarefas
 - `GET /tasks/<id>` → buscar uma tarefa pelo id
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ✅ concluido (1/7/2026)
+**Status:** ✅ Concluído (1/7/2026)
 
 ---
 
@@ -129,7 +128,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS` e `# ENDPOINTS DE USERS`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ✅ concluido (5/7/2026)
+**Status:** ✅ Concluído (5/7/2026)
 
 ---
 
@@ -141,7 +140,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, na seção marcada com `# ENDPOINTS DE TASKS`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ⚠️ aguardar a Samia concluir o `GET /tasks` antes de começar, pois precisará entender como as tarefas estão sendo armazenadas
+**Status:** ✅ Concluído (7/7/2026)
 
 ---
 
@@ -154,7 +153,8 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS` e `# ENDPOINTS DE CATEGORIES`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ✅ aguardar a Samia concluir o `GET /tasks` antes de começar (concluído)
+**Status:** ✅ Concluído (7/7/2026)
+
 ---
 
 ### Karlos
@@ -166,7 +166,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE USERS` e `# ENDPOINTS DE CATEGORIES`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ✅ pode começar imediatamente, o `models.py` já está pronto
+**Status:** ✅ Concluído (7/7/2026)
 
 ---
 
@@ -181,7 +181,7 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 **Onde mexer:** dentro do `main.py`, adicionando validações dentro dos endpoints já criados pelos outros  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** ⚠️ só pode começar após todos os endpoints estarem prontos
+**Status:** ✅ Concluído (7/7/2026)
 
 ---
 
@@ -189,14 +189,14 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 
 ```
 1. David Neves   → models.py ✅ (concluído)
-2. Samia         → GET /tasks e GET /tasks/<id>
-3. Eduardo       → POST /tasks e POST /users       (paralelo com Samia)
-4. Karlos        → GET /users e GET /categories    (paralelo com Samia)
-5. Yara          → DELETE /tasks e POST /categories (após Samia)
-6. Moisés        → PUT /tasks/<id>                 (após Samia)
-7. Zek           → validações                      (após todos os endpoints)
-8. João Pedro    → testes no Postman               (conforme endpoints forem prontos)
-9. David Neves   → frontend                        (após API completa)
+2. Samia         → GET /tasks e GET /tasks/<id> ✅ (concluído)
+3. Eduardo       → POST /tasks e POST /users ✅ (concluído)
+4. Karlos        → GET /users e GET /categories ✅ (concluído)
+5. Yara          → DELETE /tasks e POST /categories ✅ (concluído)
+6. Moisés        → PUT /tasks/<id> ✅ (concluído)
+7. Zek           → validações ✅ (concluído)
+8. João Pedro    → testes no Postman ✅ (concluído)
+9. David Neves   → frontend ✅ (concluído)
 ```
 
 ---
@@ -208,9 +208,10 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 - [x] Classes Category, User e Task (David Neves)
 - [x] GET /tasks e GET /tasks/\<id\> (Samia)
 - [x] POST /tasks e POST /users (Eduardo)
-- [ ] GET /users e GET /categories (Karlos)
-- [ ] DELETE /tasks/\<id\> e POST /categories (Yara)
-- [ ] PUT /tasks/\<id\> (Moisés)
-- [ ] Validações (Zek)
-- [ ] Documentação no Overleaf (David Neves e Samia)
-- [ ] Frontend (David Neves)
+- [x] GET /users e GET /categories (Karlos)
+- [x] DELETE /tasks/\<id\> e POST /categories (Yara)
+- [x] PUT /tasks/\<id\> (Moisés)
+- [x] Validações (Zek)
+- [x] Testes no Postman (João Pedro)
+- [x] Documentação no Overleaf (David Neves e Samia)
+- [x] Frontend (David Neves)
