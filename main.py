@@ -66,6 +66,19 @@ def create_task(): #eduardo
 # crie uma nova tarefa aqui
 # Moises → PUT /tasks/<id>
 # edite uma tarefa aqui (status, prioridade...)
+@app.route('/tasks/<int:task_id>', methods=['PUT'])
+def update_task(task_id):
+    data = request.get_json()
+    for task in tasks:
+        if task.get_id() == task_id:
+            # Atualiza apenas o que foi enviado no JSON
+            if 'title' in data: task.title = data['title']
+            if 'status' in data: task.status = data['status']
+            if 'priority' in data: task.priority = data['priority']
+            if 'description' in data: task.description = data['description']
+            
+            return jsonify(task.to_dict()), 200
+    return jsonify({'error': 'Tarefa não encontrada'}), 404
 # aguardar Samia concluir antes de comecar
 # Yara → DELETE /tasks/<id>
 # delete uma tarefa aqui
@@ -84,16 +97,16 @@ def delete_task(task_id): #yara
 # ─────────────────────────────────────────────
 # Karlos → GET /users
 # liste todos os usuarios aqui
-@app.route('/users', methods=['GET'])
-def get_users():
-    return jsonify([user.to_dict() for user in users])
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify([task.to_dict() for task in tasks])
 
-@app.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    for user in user:
-        if user.get_id() == user_id:
-            return jsonify(user.to_dict())
-    return jsonify({'error': 'Usuário não encontrado'}), 404
+@app.route('/tasks/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    for task in tasks:
+        if task.get_id() == task_id:
+            return jsonify(task.to_dict())
+    return jsonify({'error': 'Tarefa não encontrada'}), 404
 # Eduardo → POST /users
 # crie um novo usuario aqui
 @app.route('/users', methods=['POST']) #eduardo
