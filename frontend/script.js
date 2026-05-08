@@ -1,16 +1,35 @@
-// Configuração
+// Configuração da API
 const API_URL = 'http://localhost:5000';
+
+// Estado da aplicação
 let tarefas = [];
 let usuarios = [];
 let categorias = [];
 let filtroAtual = 'todos';
 let tarefaEmEdicao = null;
+let abaAtiva = 'tarefas';
 
 // Inicializar quando a página carregar
 document.addEventListener('DOMContentLoaded', () => {
+    verificarConexaoAPI();
     carregarDados();
     setInterval(carregarDados, 5000); // Atualizar a cada 5 segundos
 });
+
+// Verificar conexão com API
+async function verificarConexaoAPI() {
+    try {
+        const response = await fetch(`${API_URL}/tasks`);
+        if (response.ok) {
+            document.getElementById('apiStatus').textContent = 'Conectado à API V1.0';
+            document.getElementById('apiStatus').style.color = '#4caf50';
+        }
+    } catch (erro) {
+        document.getElementById('apiStatus').textContent = 'API desconectada';
+        document.getElementById('apiStatus').style.color = '#f44336';
+        console.error('Erro ao conectar com API:', erro);
+    }
+}
 
 // Carregar dados da API
 async function carregarDados() {
@@ -136,11 +155,11 @@ function renderizarTarefasTodos() {
                 </div>
                 <p style="color: #666; margin: 0; font-size: 14px;">${escapeHtml(tarefa.description)}</p>
                 ${tarefa.user ? `<div style="color: #999; font-size: 12px; margin-top: 5px;">👤 ${escapeHtml(tarefa.user.name)}</div>` : ''}
-                ${tarefa.category ? `<div style="color: #999; font-size: 12px;">📂 ${escapeHtml(tarefa.category.name)}</div>` : ''}
+                ${tarefa.category ? `<div style="color: #999; font-size: 12px;">${escapeHtml(tarefa.category.name)}</div>` : ''}
             </div>
             <div class="tarefa-acoes">
-                <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">✏️ Editar</button>
-                <button class="btn-deletar" onclick="deletarTarefa(${tarefa.id})">🗑️ Deletar</button>
+                <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">Editar</button>
+                <button class="btn-deletar" onclick="deletarTarefa(${tarefa.id})">Deletar</button>
             </div>
         `;
         container.appendChild(card);
@@ -164,8 +183,8 @@ function criarCardTarefa(tarefa) {
         </div>
         ${tarefa.description ? `<p class="tarefa-descricao">${escapeHtml(tarefa.description)}</p>` : ''}
         <div class="tarefa-meta">
-            ${tarefa.deadline ? `<div class="tarefa-meta-item">📅 <strong>${tarefa.deadline}</strong></div>` : ''}
-            ${tarefa.category ? `<div class="tarefa-meta-item">📂 <strong>${escapeHtml(tarefa.category.name)}</strong></div>` : ''}
+            ${tarefa.deadline ? `<div class="tarefa-meta-item"><strong>${tarefa.deadline}</strong></div>` : ''}
+            ${tarefa.category ? `<div class="tarefa-meta-item"><strong>${escapeHtml(tarefa.category.name)}</strong></div>` : ''}
         </div>
         <div class="tarefa-footer">
             <div class="tarefa-usuario">
@@ -173,8 +192,8 @@ function criarCardTarefa(tarefa) {
                 <span>${escapeHtml(nomeUsuario)}</span>
             </div>
             <div class="tarefa-acoes">
-                <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">✏️</button>
-                <button class="btn-deletar" onclick="deletarTarefa(${tarefa.id})">🗑️</button>
+                <button class="btn-editar" onclick="editarTarefa(${tarefa.id})">Editar</button>
+                <button class="btn-deletar" onclick="deletarTarefa(${tarefa.id})">Deletar</button>
             </div>
         </div>
     `;
@@ -244,11 +263,9 @@ function editarTarefa(tarefaId) {
     document.getElementById('modalOverlay').style.display = 'block';
 }
 
-// Fechar modal
+// Fechar modal (compatibilidade)
 function fecharModal() {
-    document.getElementById('modalTarefa').classList.remove('ativo');
-    document.getElementById('modalOverlay').style.display = 'none';
-    tarefaEmEdicao = null;
+    fecharTodosModals();
 }
 
 // Salvar tarefa
@@ -351,7 +368,193 @@ function mostrarNotificacao(mensagem, tipo = 'sucesso') {
     }, 3000);
 }
 
-// Função auxiliar para escapar HTML (prevenção de XSS)
+// ===== GERENCIAMENTO DE ABAS =====
+function mudarAba(novaAba) {
+    // Esconder todas as abas
+    document.querySelectorAll('.aba-conteudo').forEach(aba => {
+        aba.style.display = 'none';
+    });
+    
+    // Mostrar aba selecionada
+    document.getElementById(`abaContent-${novaAba}`).style.display = 'block';
+    
+    // Atualizar botões de aba
+    document.querySelectorAll('.aba-btn').forEach(btn => {
+        btn.classList.remove('ativa');
+    });
+    event.target.classList.add('ativa');
+    
+    // Atualizar estado
+    abaAtiva = novaAba;
+    
+    // Renderizar conteúdo da aba
+    if (novaAba === 'usuarios') {
+        renderizarUsuarios();
+    } else if (novaAba === 'categorias') {
+        renderizarCategorias();
+    }
+}
+
+// ===== FUNÇÕES DE MODAL =====
+function fecharTodosModals() {
+    document.getElementById('modalTarefa').classList.remove('ativo');
+    document.getElementById('modalUsuario').classList.remove('ativo');
+    document.getElementById('modalCategoria').classList.remove('ativo');
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+function fecharModalTarefa() {
+    document.getElementById('modalTarefa').classList.remove('ativo');
+    document.getElementById('modalOverlay').style.display = 'none';
+    tarefaEmEdicao = null;
+}
+
+// ===== GERENCIAMENTO DE USUÁRIOS =====
+function abrirModalNovoUsuario() {
+    document.getElementById('formUsuario').reset();
+    document.getElementById('modalUsuario').classList.add('ativo');
+    document.getElementById('modalOverlay').style.display = 'block';
+}
+
+function fecharModalUsuario() {
+    document.getElementById('modalUsuario').classList.remove('ativo');
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+async function salvarUsuario(event) {
+    event.preventDefault();
+    
+    const nome = document.getElementById('usuarioNome').value.trim();
+    const email = document.getElementById('usuarioEmail').value.trim();
+    
+    if (!nome || !email) {
+        mostrarNotificacao('Por favor, preencha todos os campos', 'erro');
+        return;
+    }
+    
+    const dados = {
+        name: nome,
+        email: email
+    };
+    
+    try {
+        const response = await fetch(`${API_URL}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        });
+        
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.error || 'Erro ao criar usuário');
+        }
+        
+        fecharModalUsuario();
+        await carregarUsuarios();
+        renderizarUsuarios();
+        mostrarNotificacao('Usuário criado com sucesso!', 'sucesso');
+    } catch (erro) {
+        console.error('Erro ao salvar usuário:', erro);
+        mostrarNotificacao(erro.message, 'erro');
+    }
+}
+
+function renderizarUsuarios() {
+    const container = document.getElementById('usuariosGrid');
+    container.innerHTML = '';
+    
+    if (usuarios.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Nenhum usuário cadastrado. Crie um novo!</p>';
+        return;
+    }
+    
+    usuarios.forEach(usuario => {
+        const card = document.createElement('div');
+        card.className = 'usuario-card';
+        card.innerHTML = `
+            <div class="usuario-avatar">${usuario.name.charAt(0).toUpperCase()}</div>
+            <h3>${escapeHtml(usuario.name)}</h3>
+            <p>${escapeHtml(usuario.email)}</p>
+            <div class="usuario-info">ID: ${usuario.id}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// ===== GERENCIAMENTO DE CATEGORIAS =====
+function abrirModalNovaCategoria() {
+    document.getElementById('formCategoria').reset();
+    document.getElementById('modalCategoria').classList.add('ativo');
+    document.getElementById('modalOverlay').style.display = 'block';
+}
+
+function fecharModalCategoria() {
+    document.getElementById('modalCategoria').classList.remove('ativo');
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+async function salvarCategoria(event) {
+    event.preventDefault();
+    
+    const nome = document.getElementById('categoriaNome').value.trim();
+    
+    if (!nome) {
+        mostrarNotificacao('Por favor, preencha o nome da categoria', 'erro');
+        return;
+    }
+    
+    const dados = {
+        name: nome
+    };
+    
+    try {
+        const response = await fetch(`${API_URL}/categories`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        });
+        
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.error || 'Erro ao criar categoria');
+        }
+        
+        fecharModalCategoria();
+        await carregarCategorias();
+        renderizarCategorias();
+        mostrarNotificacao('Categoria criada com sucesso!', 'sucesso');
+    } catch (erro) {
+        console.error('Erro ao salvar categoria:', erro);
+        mostrarNotificacao(erro.message, 'erro');
+    }
+}
+
+function renderizarCategorias() {
+    const container = document.getElementById('categoriasGrid');
+    container.innerHTML = '';
+    
+    if (categorias.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Nenhuma categoria cadastrada. Crie uma nova!</p>';
+        return;
+    }
+    
+    categorias.forEach(categoria => {
+        const card = document.createElement('div');
+        card.className = 'categoria-card';
+        card.innerHTML = `
+            <div class="categoria-icon">📂</div>
+            <h3>${escapeHtml(categoria.name)}</h3>
+            <div class="categoria-info">ID: ${categoria.id}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// ===== FUNÇÕES AUXILIARES =====
 function escapeHtml(texto) {
     if (!texto) return '';
     const div = document.createElement('div');

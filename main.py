@@ -14,13 +14,23 @@
 #
 # importante: quem for comecar esse arquivo deve:
 # 1. importar o flask e as classes do models.py
-from flask import Flask, jsonify, request #samia #eduardo
+from flask import Flask, jsonify, request, send_file #samia #eduardo
 from flask_cors import CORS #david
 from models import Category, User, Task #samia
+import os
 
 # 2. criar a instancia do app flask
-app = Flask(__name__) #samia
+app = Flask(__name__, static_folder='frontend', static_url_path='') #samia
 CORS(app) #david - permitir requisicoes do frontend
+
+# Rota raiz para servir o frontend
+@app.route('/')
+def index():
+    return send_file('frontend/index.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_file(f'frontend/{filename}')
 
 # 3. criar as listas que vao guardar os objetos na memoria
 tasks = [] #samia

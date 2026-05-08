@@ -3,43 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Tarefas Minimalista</title>
+    <title>Gerenciador de Tarefas - Python + Frontend</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>Gerenciador de Tarefas Minimalista</h1>
-            <button class="btn-nova-tarefa" onclick="abrirModalNovaTarefa()">+ Nova Tarefa</button>
+            <h1>Gerenciador de Tarefas</h1>
+            <div class="header-info">
+                <span class="api-status" id="apiStatus">Conectando à API Python...</span>
+            </div>
         </header>
 
-        <!-- Filtros -->
-        <div class="filtros">
-            <button class="filtro-btn ativo" onclick="filtrarTarefas('todos')">Todos</button>
-            <button class="filtro-btn" onclick="filtrarTarefas('pending')">Pendente</button>
-            <button class="filtro-btn" onclick="filtrarTarefas('doing')">Em andamento</button>
-            <button class="filtro-btn" onclick="filtrarTarefas('done')">Concluída</button>
+        <!-- Abas Principais -->
+        <div class="abas-container">
+            <button class="aba-btn ativa" onclick="mudarAba('tarefas')">Tarefas</button>
+            <button class="aba-btn" onclick="mudarAba('usuarios')">Usuários</button>
+            <button class="aba-btn" onclick="mudarAba('categorias')">Categorias</button>
         </div>
 
-        <!-- Container de Tarefas -->
-        <div class="tarefas-container" id="tarefasContainer">
-            <div class="coluna-tarefas">
-                <h2 class="status-title">Pendente</h2>
-                <div class="tarefas-lista" id="tarefasPending"></div>
+        <!-- ABA TAREFAS -->
+        <div class="aba-conteudo" id="abaContent-tarefas" style="display: block;">
+            <div class="filtros">
+                <button class="filtro-btn ativo" onclick="filtrarTarefas('todos')">Todos</button>
+                <button class="filtro-btn" onclick="filtrarTarefas('pending')">Pendente</button>
+                <button class="filtro-btn" onclick="filtrarTarefas('doing')">Em andamento</button>
+                <button class="filtro-btn" onclick="filtrarTarefas('done')">Concluída</button>
+                <button class="btn-nova-tarefa" onclick="abrirModalNovaTarefa()">+ Nova Tarefa</button>
             </div>
-            <div class="coluna-tarefas">
-                <h2 class="status-title">Em andamento</h2>
-                <div class="tarefas-lista" id="tarefasDoing"></div>
+
+            <div class="tarefas-container" id="tarefasContainer">
+                <div class="coluna-tarefas">
+                    <h2 class="status-title">Pendente</h2>
+                    <div class="tarefas-lista" id="tarefasPending"></div>
+                </div>
+                <div class="coluna-tarefas">
+                    <h2 class="status-title">Em andamento</h2>
+                    <div class="tarefas-lista" id="tarefasDoing"></div>
+                </div>
+                <div class="coluna-tarefas">
+                    <h2 class="status-title">Concluída</h2>
+                    <div class="tarefas-lista" id="tarefasDone"></div>
+                </div>
             </div>
-            <div class="coluna-tarefas">
-                <h2 class="status-title">Concluída</h2>
-                <div class="tarefas-lista" id="tarefasDone"></div>
-            </div>
+
+            <div class="tarefas-todos" id="tarefasTodos" style="display: none;"></div>
         </div>
 
-        <!-- View Todos -->
-        <div class="tarefas-todos" id="tarefasTodos" style="display: none;"></div>
+        <!-- ABA USUARIOS -->
+        <div class="aba-conteudo" id="abaContent-usuarios" style="display: none;">
+            <div class="aba-header">
+                <h2>Gerenciar Usuários</h2>
+                <button class="btn-nova-tarefa" onclick="abrirModalNovoUsuario()">+ Novo Usuário</button>
+            </div>
+            <div class="usuarios-grid" id="usuariosGrid"></div>
+        </div>
+
+        <!-- ABA CATEGORIAS -->
+        <div class="aba-conteudo" id="abaContent-categorias" style="display: none;">
+            <div class="aba-header">
+                <h2>Gerenciar Categorias</h2>
+                <button class="btn-nova-tarefa" onclick="abrirModalNovaCategoria()">+ Nova Categoria</button>
+            </div>
+            <div class="categorias-grid" id="categoriasGrid"></div>
+        </div>
     </div>
 
     <!-- Modal Nova/Editar Tarefa -->
@@ -47,7 +75,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitulo">Criar Nova Tarefa</h2>
-                <button class="btn-fechar" onclick="fecharModal()">&times;</button>
+                <button class="btn-fechar" onclick="fecharModalTarefa()">&times;</button>
             </div>
             <form id="formTarefa" onsubmit="salvarTarefa(event)">
                 <div class="form-grupo">
@@ -101,16 +129,66 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
-                    <button type="submit" class="btn-salvar">Salvar Tarefa</button>
+                <div class="form-acoes">
+                    <button type="submit" class="btn-enviar">Salvar Tarefa</button>
+                    <button type="button" class="btn-cancelar" onclick="fecharModalTarefa()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Novo Usuário -->
+    <div class="modal" id="modalUsuario">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Novo Usuário</h2>
+                <button class="btn-fechar" onclick="fecharModalUsuario()">&times;</button>
+            </div>
+            <form id="formUsuario" onsubmit="salvarUsuario(event)">
+                <div class="form-grupo">
+                    <label for="usuarioNome">Nome *</label>
+                    <input type="text" id="usuarioNome" placeholder="Digite o nome completo" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="usuarioEmail">Email *</label>
+                    <input type="email" id="usuarioEmail" placeholder="Digite o email" required>
+                </div>
+
+                <div class="form-acoes">
+                    <button type="submit" class="btn-enviar">Criar Usuário</button>
+                    <button type="button" class="btn-cancelar" onclick="fecharModalUsuario()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nova Categoria -->
+    <div class="modal" id="modalCategoria">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Nova Categoria</h2>
+                <button class="btn-fechar" onclick="fecharModalCategoria()">&times;</button>
+            </div>
+            <form id="formCategoria" onsubmit="salvarCategoria(event)">
+                <div class="form-grupo">
+                    <label for="categoriaNome">Nome da Categoria *</label>
+                    <input type="text" id="categoriaNome" placeholder="Ex: Trabalho, Estudo, Pessoal" required>
+                </div>
+
+                <div class="form-acoes">
+                    <button type="submit" class="btn-enviar">Criar Categoria</button>
+                    <button type="button" class="btn-cancelar" onclick="fecharModalCategoria()">Cancelar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- Overlay Modal -->
-    <div class="modal-overlay" id="modalOverlay" onclick="fecharModal()"></div>
+    <div class="modal-overlay" id="modalOverlay" onclick="fecharTodosModals()"></div>
+
+    <!-- Notificação -->
+    <div class="notificacao" id="notificacao"></div>
 
     <script src="script.js"></script>
 </body>

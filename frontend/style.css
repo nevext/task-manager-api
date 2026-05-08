@@ -552,3 +552,271 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* ===== ESTILOS DAS ABAS ===== */
+.abas-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 0;
+    background: transparent;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    flex-wrap: wrap;
+}
+
+.aba-btn {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #666;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.aba-btn:hover {
+    color: #d4a574;
+}
+
+.aba-btn.ativa {
+    color: #d4a574;
+    border-bottom-color: #d4a574;
+}
+
+.aba-conteudo {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.aba-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.aba-header h2 {
+    font-size: 24px;
+    color: #2c2c2c;
+    margin: 0;
+}
+
+/* ===== HEADER INFO ===== */
+.header-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.api-status {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4caf50;
+    padding: 8px 12px;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 20px;
+}
+
+/* ===== GRID DE USUÁRIOS ===== */
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.usuario-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.usuario-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.usuario-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4a574, #c19460);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto 15px;
+}
+
+.usuario-card h3 {
+    font-size: 18px;
+    color: #2c2c2c;
+    margin-bottom: 8px;
+}
+
+.usuario-card p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 12px;
+    word-break: break-all;
+}
+
+.usuario-info {
+    font-size: 12px;
+    color: #999;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* ===== GRID DE CATEGORIAS ===== */
+.categorias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.categoria-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.categoria-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.categoria-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.categoria-card h3 {
+    font-size: 18px;
+    color: #2c2c2c;
+    margin-bottom: 12px;
+}
+
+.categoria-info {
+    font-size: 12px;
+    color: #999;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* ===== FORM ACTIONS ===== */
+.form-acoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-enviar {
+    flex: 1;
+    padding: 12px 24px;
+    background: #d4a574;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background: #c19460;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 165, 116, 0.3);
+}
+
+.btn-cancelar {
+    flex: 1;
+    padding: 12px 24px;
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background: #e0e0e0;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .tarefas-container {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .abas-container {
+        gap: 5px;
+    }
+
+    .aba-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .usuarios-grid,
+    .categorias-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .filtros {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .btn-nova-tarefa {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
