@@ -149,13 +149,12 @@ Ao final do projeto, o sistema deverá funcionar da seguinte forma:
 **Arquivo:** `main.py`  
 **Função:** Implementar os endpoints de deletar tarefa e criar categoria  
 **Endpoints:**
-- `DELETE /tasks/<id>` → deletar uma tarefa 
+- `DELETE /tasks/<id>` → deletar uma tarefa
 - `POST /categories` → criar uma nova categoria
 
 **Onde mexer:** apenas dentro do `main.py`, nas seções marcadas com `# ENDPOINTS DE TASKS` e `# ENDPOINTS DE CATEGORIES`  
 **Não mexa em:** `models.py`, `requirements.txt` ou qualquer outro arquivo  
-**Fila:** "TERMINEI" aguardar a Samia concluir o `GET /tasks` antes de começar
-CONCLUIDO
+**Fila:** ✅ aguardar a Samia concluir o `GET /tasks` antes de começar (concluído)
 ---
 
 ### Karlos
