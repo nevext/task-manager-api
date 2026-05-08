@@ -23,10 +23,10 @@ import os
 app = Flask(__name__, static_folder='frontend', static_url_path='') #samia
 CORS(app) #david - permitir requisicoes do frontend
 
-# Rota raiz para servir o frontend
+
 @app.route('/')
 def index():
-    return send_file('frontend/index.html')
+    return send_file('frontend/index.html')    #kkkkkkkkkkk sem isso o flask nao acha o index.html e da erro, ai a gente fica se perguntando pq nao ta funcionando lol
 
 @app.route('/<path:filename>')
 def serve_static(filename):
