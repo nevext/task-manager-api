@@ -139,6 +139,23 @@ class Task:
     # o flask nao consegue converter objetos diretamente pra JSON
     # entao chamamos o .to_dict() do user e do category tambem
     # assim tudo vira dicionario no final e o flask consegue converter tudo pra JSON certinho
+    # setters da task (para o PUT funcionar)
+    # permitindo que a tarefa seja atualizada
+    def set_title(self, title: str):
+        self.__title = title
+
+    def set_description(self, description: str):
+        self.__description = description
+
+    def set_status(self, status: str):
+        self.__status = status
+
+    def set_priority(self, priority: str):
+        self.__priority = priority
+
+    def set_deadline(self, deadline: str):
+        self.__deadline = deadline
+
     def to_dict(self):
         return {
             "id": self.__id,
@@ -147,6 +164,6 @@ class Task:
             "status": self.__status,
             "priority": self.__priority,
             "deadline": self.__deadline,
-            "user": self.__user.to_dict(),        # chama o to_dict do objeto User
-            "category": self.__category.to_dict() # chama o to_dict do objeto Category
+            "user": self.__user.to_dict() if self.__user else None,        # chama o to_dict do objeto User se existir
+            "category": self.__category.to_dict() if self.__category else None # chama o to_dict do objeto Category se existir
         }

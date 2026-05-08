@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas Minimalista</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Gerenciador de Tarefas Minimalista</h1>
+            <button class="btn-nova-tarefa" onclick="abrirModalNovaTarefa()">+ Nova Tarefa</button>
+        </header>
+
+        <!-- Filtros -->
+        <div class="filtros">
+            <button class="filtro-btn ativo" onclick="filtrarTarefas('todos')">Todos</button>
+            <button class="filtro-btn" onclick="filtrarTarefas('pending')">Pendente</button>
+            <button class="filtro-btn" onclick="filtrarTarefas('doing')">Em andamento</button>
+            <button class="filtro-btn" onclick="filtrarTarefas('done')">Concluída</button>
+        </div>
+
+        <!-- Container de Tarefas -->
+        <div class="tarefas-container" id="tarefasContainer">
+            <div class="coluna-tarefas">
+                <h2 class="status-title">Pendente</h2>
+                <div class="tarefas-lista" id="tarefasPending"></div>
+            </div>
+            <div class="coluna-tarefas">
+                <h2 class="status-title">Em andamento</h2>
+                <div class="tarefas-lista" id="tarefasDoing"></div>
+            </div>
+            <div class="coluna-tarefas">
+                <h2 class="status-title">Concluída</h2>
+                <div class="tarefas-lista" id="tarefasDone"></div>
+            </div>
+        </div>
+
+        <!-- View Todos -->
+        <div class="tarefas-todos" id="tarefasTodos" style="display: none;"></div>
+    </div>
+
+    <!-- Modal Nova/Editar Tarefa -->
+    <div class="modal" id="modalTarefa">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Criar Nova Tarefa</h2>
+                <button class="btn-fechar" onclick="fecharModal()">&times;</button>
+            </div>
+            <form id="formTarefa" onsubmit="salvarTarefa(event)">
+                <div class="form-grupo">
+                    <label for="tarefaTitulo">Título *</label>
+                    <input type="text" id="tarefaTitulo" placeholder="Digite o título da tarefa" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="tarefaDescricao">Descrição</label>
+                    <textarea id="tarefaDescricao" placeholder="Digite a descrição (opcional)" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-grupo">
+                        <label for="tarefaStatus">Status</label>
+                        <select id="tarefaStatus">
+                            <option value="pending">Pendente</option>
+                            <option value="doing">Em andamento</option>
+                            <option value="done">Concluída</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="tarefaPriority">Prioridade</label>
+                        <select id="tarefaPriority">
+                            <option value="low">Baixa</option>
+                            <option value="medium">Média</option>
+                            <option value="high">Alta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="tarefaDeadline">Prazo</label>
+                    <input type="date" id="tarefaDeadline">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-grupo">
+                        <label for="tarefaUser">Usuário</label>
+                        <select id="tarefaUser">
+                            <option value="">Selecione um usuário</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="tarefaCategory">Categoria</label>
+                        <select id="tarefaCategory">
+                            <option value="">Selecione uma categoria</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar Tarefa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="fecharModal()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

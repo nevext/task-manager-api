@@ -15,10 +15,12 @@
 # importante: quem for comecar esse arquivo deve:
 # 1. importar o flask e as classes do models.py
 from flask import Flask, jsonify, request #samia #eduardo
+from flask_cors import CORS #david
 from models import Category, User, Task #samia
 
 # 2. criar a instancia do app flask
 app = Flask(__name__) #samia
+CORS(app) #david - permitir requisicoes do frontend
 
 # 3. criar as listas que vao guardar os objetos na memoria
 tasks = [] #samia
@@ -50,7 +52,39 @@ def get_task(task_id): #samia
 @app.route('/tasks', methods=['POST']) #eduardo
 def create_task(): #eduardo
     data = request.get_json() #eduardo
+    
+    # ========== VALIDACOES DO ZEK ========== #zek
+    # validação de campos obrigatórios #zek
+    if not data.get('title') or data.get('title').strip() == '': #zek
+        return jsonify({'error': 'O campo title é obrigatório'}), 400 #zek
+    
+    # validação de status #zek
+    status_validos = ['pending', 'doing', 'done'] #zek
+    if data.get('status') and data['status'] not in status_validos: #zek
+        return jsonify({'error': f"Status inválido. Use: {', '.join(status_validos)}"}), 400 #zek
+    
+    # validação de priority #zek
+    prioridades_validas = ['low', 'medium', 'high'] #zek
+    if data.get('priority') and data['priority'] not in prioridades_validas: #zek
+        return jsonify({'error': f"Priority inválida. Use: {', '.join(prioridades_validas)}"}), 400 #zek
+    # ========== FIM DAS VALIDACOES ========== #zek
+    
     task_id = len(tasks) + 1 #eduardo
+    
+    # buscar o usuario e a categoria pelos IDs #eduardo
+    user = None #eduardo
+    category = None #eduardo
+    if data.get('user_id'): #eduardo
+        for u in users: #eduardo
+            if u.get_id() == data.get('user_id'): #eduardo
+                user = u #eduardo
+                break #eduardo
+    if data.get('category_id'): #eduardo
+        for c in categories: #eduardo
+            if c.get_id() == data.get('category_id'): #eduardo
+                category = c #eduardo
+                break #eduardo
+    
     task = Task( #eduardo
         id=task_id, #eduardo
         title=data['title'], #eduardo
@@ -58,27 +92,50 @@ def create_task(): #eduardo
         status=data.get('status', 'pending'), #eduardo
         priority=data.get('priority', 'low'), #eduardo
         deadline=data.get('deadline', ''), #eduardo
-        user_id=data.get('user_id'), #eduardo
-        category_id=data.get('category_id') #eduardo
+        user=user, #eduardo
+        category=category #eduardo
     )
     tasks.append(task) #eduardo
     return jsonify(task.to_dict()), 201 #eduardo
 # crie uma nova tarefa aqui
 # Moises → PUT /tasks/<id>
 # edite uma tarefa aqui (status, prioridade...)
-@app.route('/tasks/<int:task_id>', methods=['PUT'])
-def update_task(task_id):
-    data = request.get_json()
-    for task in tasks:
-        if task.get_id() == task_id:
-            # Atualiza apenas o que foi enviado no JSON
-            if 'title' in data: task.title = data['title']
-            if 'status' in data: task.status = data['status']
-            if 'priority' in data: task.priority = data['priority']
-            if 'description' in data: task.description = data['description']
-            
-            return jsonify(task.to_dict()), 200
-    return jsonify({'error': 'Tarefa não encontrada'}), 404
+@app.route('/tasks/<int:task_id>', methods=['PUT']) #moises
+def update_task(task_id): #moises
+    data = request.get_json() #moises
+    
+    # ========== VALIDACOES DO ZEK ========== #zek
+    # validação de status #zek
+    if data.get('status'): #zek
+        status_validos = ['pending', 'doing', 'done'] #zek
+        if data['status'] not in status_validos: #zek
+            return jsonify({'error': f"Status inválido. Use: {', '.join(status_validos)}"}), 400 #zek
+    
+    # validação de priority #zek
+    if data.get('priority'): #zek
+        prioridades_validas = ['low', 'medium', 'high'] #zek
+        if data['priority'] not in prioridades_validas: #zek
+            return jsonify({'error': f"Priority inválida. Use: {', '.join(prioridades_validas)}"}), 400 #zek
+    
+    # validação de title (se fornecido, não pode estar vazio) #zek
+    if data.get('title') and data.get('title').strip() == '': #zek
+        return jsonify({'error': 'O campo title não pode estar vazio'}), 400 #zek
+    # ========== FIM DAS VALIDACOES ========== #zek
+    
+    for task in tasks: #moises
+        if task.get_id() == task_id: #moises
+            if 'title' in data: #moises
+                task.set_title(data['title']) #moises
+            if 'description' in data: #moises
+                task.set_description(data['description']) #moises
+            if 'status' in data: #moises
+                task.set_status(data['status']) #moises
+            if 'priority' in data: #moises
+                task.set_priority(data['priority']) #moises
+            if 'deadline' in data: #moises
+                task.set_deadline(data['deadline']) #moises
+            return jsonify(task.to_dict()) #moises
+    return jsonify({'error': 'Tarefa não encontrada'}), 404 #moises
 # aguardar Samia concluir antes de comecar
 # Yara → DELETE /tasks/<id>
 # delete uma tarefa aqui
@@ -97,21 +154,31 @@ def delete_task(task_id): #yara
 # ─────────────────────────────────────────────
 # Karlos → GET /users
 # liste todos os usuarios aqui
-@app.route('/users', methods=['GET'])
-def get_users():
-    return jsonify([user.to_dict() for user in users])
+@app.route('/users', methods=['GET']) #karlos
+def get_users(): #karlos
+    return jsonify([user.to_dict() for user in users]) #karlos
 
-@app.route('/users/<int:user_id>', methods=['GET'])
-def get_users(user_id):
-    for user in users:
-        if user.get_id() == user_id:
-            return jsonify(user.to_dict())
-    return jsonify({'error': 'Usuário não encontrado'}), 404
+@app.route('/users/<int:user_id>', methods=['GET']) #karlos
+def get_user(user_id): #karlos
+    for user in users: #karlos
+        if user.get_id() == user_id: #karlos
+            return jsonify(user.to_dict()) #karlos
+    return jsonify({'error': 'Usuário não encontrado'}), 404 #karlos
 # Eduardo → POST /users
 # crie um novo usuario aqui
 @app.route('/users', methods=['POST']) #eduardo
 def create_user(): #eduardo
     data = request.get_json() #eduardo
+    
+    # ========== VALIDACOES DO ZEK ========== #zek
+    # validação de campos obrigatórios #zek
+    if not data.get('name') or data.get('name').strip() == '': #zek
+        return jsonify({'error': 'O campo name é obrigatório'}), 400 #zek
+    
+    if not data.get('email') or data.get('email').strip() == '': #zek
+        return jsonify({'error': 'O campo email é obrigatório'}), 400 #zek
+    # ========== FIM DAS VALIDACOES ========== #zek
+    
     user_id = len(users) + 1 #eduardo
     user = User( #eduardo
         id=user_id, #eduardo
@@ -134,6 +201,13 @@ def get_categories():
 @app.route('/categories', methods=['POST']) #yara
 def create_category(): #yara
     data = request.get_json() #yara
+    
+    # ========== VALIDACOES DO ZEK ========== #zek
+    # validação de campos obrigatórios #zek
+    if not data.get('name') or data.get('name').strip() == '': #zek
+        return jsonify({'error': 'O campo name é obrigatório'}), 400 #zek
+    # ========== FIM DAS VALIDACOES ========== #zek
+    
     category_id = len(categories) + 1 #yara
     category = Category( #yara
         id=category_id, #yara
