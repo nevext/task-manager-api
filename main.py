@@ -84,16 +84,16 @@ def delete_task(task_id): #yara
 # ─────────────────────────────────────────────
 # Karlos → GET /users
 # liste todos os usuarios aqui
-@app.route('/tasks', methods=['GET'])
-def get_tasks():
-    return jsonify([task.to_dict() for task in tasks])
+@app.route('/users', methods=['GET'])
+def get_users():
+    return jsonify([user.to_dict() for user in users])
 
-@app.route('/tasks/<int:task_id>', methods=['GET'])
-def get_task(task_id):
-    for task in tasks:
-        if task.get_id() == task_id:
-            return jsonify(task.to_dict())
-    return jsonify({'error': 'Tarefa não encontrada'}), 404
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    for user in user:
+        if user.get_id() == user_id:
+            return jsonify(user.to_dict())
+    return jsonify({'error': 'Usuário não encontrado'}), 404
 # Eduardo → POST /users
 # crie um novo usuario aqui
 @app.route('/users', methods=['POST']) #eduardo
