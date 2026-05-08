@@ -72,10 +72,11 @@ def create_task(): #eduardo
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE']) #yara
 def delete_task(task_id): #yara
-     for task in tasks: #yara
-         if task.get_id() == task_id: #yara
-             tasks.remove(task) #yara
-             return jsonify({'message': 'Tarefa deletada com sucesso'}) #yara    
+    for i, task in enumerate(tasks): #yara
+        if task.get_id() == task_id: #yara
+            tasks.pop(i) #yara
+            return jsonify({'message': 'Tarefa deletada com sucesso'}) #yara
+    return jsonify({'error': 'Tarefa não encontrada'}), 404 #yara    
 
 # ENDPOINTS DE USERS
 # responsavel: Eduardo (POST) e Karlos (GET)
