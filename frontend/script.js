@@ -1,8 +1,7 @@
-// Configuração da API
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:5000';  //aqui q pega a API
 
-// Estado da aplicação
-let tarefas = [];
+
+let tarefas = []; // Estado da aplicação
 let usuarios = [];
 let categorias = [];
 let filtroAtual = 'todos';
@@ -368,7 +367,6 @@ function mostrarNotificacao(mensagem, tipo = 'sucesso') {
     }, 3000);
 }
 
-// ===== GERENCIAMENTO DE ABAS =====
 function mudarAba(novaAba) {
     // Esconder todas as abas
     document.querySelectorAll('.aba-conteudo').forEach(aba => {
@@ -395,7 +393,6 @@ function mudarAba(novaAba) {
     }
 }
 
-// ===== FUNÇÕES DE MODAL =====
 function fecharTodosModals() {
     document.getElementById('modalTarefa').classList.remove('ativo');
     document.getElementById('modalUsuario').classList.remove('ativo');
@@ -409,7 +406,6 @@ function fecharModalTarefa() {
     tarefaEmEdicao = null;
 }
 
-// ===== GERENCIAMENTO DE USUÁRIOS =====
 function abrirModalNovoUsuario() {
     document.getElementById('formUsuario').reset();
     document.getElementById('modalUsuario').classList.add('ativo');
@@ -483,7 +479,6 @@ function renderizarUsuarios() {
     });
 }
 
-// ===== GERENCIAMENTO DE CATEGORIAS =====
 function abrirModalNovaCategoria() {
     document.getElementById('formCategoria').reset();
     document.getElementById('modalCategoria').classList.add('ativo');
@@ -554,7 +549,6 @@ function renderizarCategorias() {
     });
 }
 
-// ===== FUNÇÕES AUXILIARES =====
 function escapeHtml(texto) {
     if (!texto) return '';
     const div = document.createElement('div');
